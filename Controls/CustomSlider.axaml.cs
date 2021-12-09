@@ -13,13 +13,19 @@ namespace AvaloniaBoundsIssue.Controls
 			ValueProperty.Changed.AddClassHandler<CustomSlider>((x, e) => x.UpdateIndicatorWhenPropChanged(e));
 			MinimumProperty.Changed.AddClassHandler<CustomSlider>((x, e) => x.UpdateIndicatorWhenPropChanged(e));
 			MaximumProperty.Changed.AddClassHandler<CustomSlider>((x, e) => x.UpdateIndicatorWhenPropChanged(e));
-			// Workaround that fixes all this:
+			// Janky(?) alternative
 			// BoundsProperty.Changed.AddClassHandler<CustomSlider>((x, e) => x.UpdateIndicatorWhenPropChanged(e));
 		}
 
 		public CustomSlider()
 		{
 			
+		}
+
+		protected override Size ArrangeOverride(Size finalSize)
+		{
+			UpdateIndicator(finalSize);
+			return base.ArrangeOverride(finalSize);
 		}
 
 		protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
